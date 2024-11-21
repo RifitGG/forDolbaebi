@@ -1,0 +1,28 @@
+CREATE DATABASE employee_time_tracking;
+
+USE employee_time_tracking;
+
+-- Таблица пользователей
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'employee') NOT NULL
+);
+
+-- Таблица сотрудников
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    department VARCHAR(100) NOT NULL
+);
+
+-- Таблица учета рабочего времени
+CREATE TABLE work_hours (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT NOT NULL,
+    date DATE NOT NULL,
+    hours_worked DECIMAL(5, 2) NOT NULL,
+    description TEXT,
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
+);
